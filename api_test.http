@@ -3,3 +3,15 @@ GET http://localhost:5000/
 ###
 
 GET http://localhost:3000/
+
+
+### Test Sequence A: Querying the Tutor Catalog Listing
+GET http://localhost:5000/api/tutors
+
+###
+
+### Test Sequence B: Verifying the User Account Creation Pathway
+POST http://localhost:5000/api/users/register
+Content-Type: application/json
+
+{}

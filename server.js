@@ -3,23 +3,34 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Global Middleware Control: Convert raw input text string payloads into readable JS data objects
+// Import our centralized database query bridge module
+const db = require('./config/db');
+
 app.use(express.json());
 
-// Import our custom department sub-routing scripts
-const userCorridor = require('./routes/users');
-const tutorCorridor = require('./routes/tutors');
-
-// Link our custom sub-routers to clean, standardized web path access lines
-app.use('/api/users', userCorridor);
-app.use('/api/tutors', tutorCorridor);
-
-app.get('/', (req, res) => {
-    res.send('Welcome to the BrightMinds Online Tuition & Tutor Matching API Engine!');
+// Diagnostic Test Endpoint: Query real-time clocks directly from the SQL engine
+app.get('/api/db-test', async (req, res) => {
+    try {
+        // Query the database engine for its current internal time
+        const dbResult = await db.query('SELECT NOW();');
+        res.status(200).json({
+            success: true,
+            message: "Database communication channel is running perfectly!",
+            timestamp: dbResult.rows[0].now
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: "Database connection failure. Check your credentials.",
+            error: error.message
+        });
+    }
 });
 
 app.listen(PORT, () => {
-    console.log(`🚀 BrightMinds Specialized Routers Active on Connection Port: ${PORT}`);
+    console.log(`🚀 Server monitoring active on port: ${PORT}`);
 });
+
 
 
