@@ -1,1 +1,6 @@
 GET http://localhost:3000/
+
+### Test Database Connection Channel
+GET http://localhost:5000/api/db-test
+
+GET http://localhost:5000/api/schema-verify
