@@ -7,6 +7,8 @@ const PORT = process.env.PORT || 3000;
 const db = require('./config/db');
 
 app.use(express.json());
+app.use('/api/users', require('./routes/users'));
+
 
 // Diagnostic Test Endpoint: Query real-time clocks directly from the SQL engine
 app.get('/api/db-test', async (req, res) => {

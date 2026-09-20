@@ -1,17 +1,29 @@
-GET http://localhost:5000/
-
-###
-
-GET http://localhost:3000/
-
-
-### Test Sequence A: Querying the Tutor Catalog Listing
-GET http://localhost:5000/api/tutors
-
-###
-
-### Test Sequence B: Verifying the User Account Creation Pathway
+### TEST CASE 1: Register a New Student Profile
 POST http://localhost:5000/api/users/register
 Content-Type: application/json
+ 
+{
+  "email": "amber.student@brightminds.com",
+  "password": "SecurePassword123",
+  "role": "STUDENT"
+}
+ 
+### TEST CASE 1B: Send the EXACT same request again (duplicate email must be blocked)
+POST http://localhost:5000/api/users/register
+Content-Type: application/json
+ 
+{
+  "email": "amber.student@brightminds.com",
+  "password": "SecurePassword123",
+  "role": "STUDENT"
+}
+ 
+### TEST CASE 1C: Register WITHOUT an email (validation must fail)
+POST http://localhost:5000/api/users/register
+Content-Type: application/json
+ 
+{
+  "password": "SecurePassword123",
+  "role": "STUDENT"
+}
 
-{}
