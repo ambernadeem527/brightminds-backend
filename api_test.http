@@ -27,3 +27,21 @@ Content-Type: application/json
   "role": "STUDENT"
 }
 
+### TEST CASE 2: Attempt Login with Bad Credentials (Should Fail)
+POST http://localhost:5000/api/users/login
+Content-Type: application/json
+ 
+{
+  "email": "amber.student@brightminds.com",
+  "password": "WrongPasswordHere"
+}
+ 
+### TEST CASE 3: Login with Correct Registered Credentials (Should Pass)
+POST http://localhost:5000/api/users/login
+Content-Type: application/json
+ 
+{
+  "email": "amber.student@brightminds.com",
+  "password": "SecurePassword123"
+}
+
