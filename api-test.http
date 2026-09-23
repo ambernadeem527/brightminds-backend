@@ -1,0 +1,26 @@
+### TEST CASE 2: Register New User Account (Fresh Email)
+POST http://localhost:5000/api/users/register
+Content-Type: application/json
+
+{
+  "email": "amber2@brightminds.com",
+  "password": "Password123",
+  "role": "STUDENT"
+}
+
+### TEST CASE 3: Login User (With Fresh Email)
+POST http://localhost:5000/api/users/login
+Content-Type: application/json
+
+{
+  "email": "amber2@brightminds.com",
+  "password": "Password123"
+}
+
+### TEST CASE 4: Access Protected Sandbox with NO Token Pass (Should Fail)
+GET http://localhost:5000/api/users/dashboard-sandbox
+ 
+### TEST CASE 5: Access Protected Sandbox with Authentic Token Pass (Should Pass)
+GET http://localhost:5000/api/users/dashboard-sandbox
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTAxNjYzMjIsImV4cCI6MTc5MDI1MjcyMn0.U7VJHtb7c25t8D6ilkDJuFw94vWRjG3I97Pj92hse2M
+
