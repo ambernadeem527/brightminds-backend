@@ -24,3 +24,35 @@ GET http://localhost:5000/api/users/dashboard-sandbox
 GET http://localhost:5000/api/users/dashboard-sandbox
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTAxNjYzMjIsImV4cCI6MTc5MDI1MjcyMn0.U7VJHtb7c25t8D6ilkDJuFw94vWRjG3I97Pj92hse2M
 
+### TEST CASE 6: Fetch Profile Details via Valid Bearer Token
+GET http://localhost:5000/api/users/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTAyNTA5OTcsImV4cCI6MTc5MDMzNzM5N30.il1aMo_Tsa11UYLzFoOB2uXVARj97KXo5cty5BTpazM
+
+ 
+### TEST CASE 7: Attempt Entry to Admin Portal using STUDENT Token (Should Fail)
+GET http://localhost:5000/api/users/admin-only-dashboard
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTAyNTEyNjksImV4cCI6MTc5MDMzNzY2OX0.oCVhvaNdI03s-xelw6qkuF32bszaB0CfJ8K4BMt_1Hw
+
+
+### TEST CASE 7B (OPTIONAL): Register an ADMIN Account
+POST http://localhost:5000/api/users/register
+Content-Type: application/json
+ 
+{
+  "email": "admin@brightminds.com",
+  "password": "AdminSecurePassword123",
+  "role": "ADMIN"
+}
+ 
+### TEST CASE 7C (OPTIONAL): Log In as the ADMIN (Copy the Token)
+POST http://localhost:5000/api/users/login
+Content-Type: application/json
+ 
+{
+  "email": "admin@brightminds.com",
+  "password": "AdminSecurePassword123"
+}
+ 
+### TEST CASE 7D (OPTIONAL): Access Admin Portal using the ADMIN Token (Should Pass)
+GET http://localhost:5000/api/users/admin-only-dashboard
+Authorization: Bearer INSERT_YOUR_ADMIN_TOKEN_HERE
