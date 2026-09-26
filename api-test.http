@@ -56,3 +56,71 @@ Content-Type: application/json
 ### TEST CASE 7D (OPTIONAL): Access Admin Portal using the ADMIN Token (Should Pass)
 GET http://localhost:5000/api/users/admin-only-dashboard
 Authorization: Bearer INSERT_YOUR_ADMIN_TOKEN_HERE
+
+
+### TEST CASE 8: Register a Brand New Tutor Identity Account
+POST http://localhost:5000/api/users/register
+Content-Type: application/json
+ 
+{
+  "email": "sarah.khan@brightminds.com",
+  "password": "TutorSecurePassword123",
+  "role": "TUTOR"
+}
+ 
+### TEST CASE 9: Log In as the Newly Registered Tutor (To Get a Tutor Token)
+POST http://localhost:5000/api/users/login
+Content-Type: application/json
+ 
+{
+  "email": "sarah.khan@brightminds.com",
+  "password": "TutorSecurePassword123"
+}
+ 
+### TEST CASE 10: Complete the Tutor Profile Onboarding (Using the Tutor Token)
+POST http://localhost:5000/api/tutors/onboard
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJzYXJhaC5raGFuQGJyaWdodG1pbmRzLmNvbSIsInJvbGUiOiJUVVRPUiIsImlhdCI6MTc5MDMzNzM3NCwiZXhwIjoxNzkwNDIzNzc0fQ.Umxqf2VLOhTZU0CXpCtR9R2BjGpxrlRPTFONExsmv7o
+
+ 
+{
+  "subject_expertise": "9th-10th Grade Physics & Algebra",
+  "bio": "Extremely passionate education professional with 5 years experience coaching high school metrics.",
+  "hourly_rate": 35.00
+}
+ 
+### TEST CASE 10B (OPTIONAL): Send Test Case 10 Again (Duplicate Profile Must Be Blocked)
+POST http://localhost:5000/api/tutors/onboard
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJzYXJhaC5raGFuQGJyaWdodG1pbmRzLmNvbSIsInJvbGUiOiJUVVRPUiIsImlhdCI6MTc5MDMzNzY5MiwiZXhwIjoxNzkwNDI0MDkyfQ.yVG05u-ZcpHL5_YxCgSqwJhDD51V1CnAU3uXlpozt4s
+
+ 
+{
+  "subject_expertise": "9th-10th Grade Physics & Algebra",
+  "bio": "Extremely passionate education professional with 5 years experience coaching high school metrics.",
+  "hourly_rate": 35.00
+}
+ 
+### TEST CASE 10C (OPTIONAL): Invalid Hourly Rate (Validation Must Fail)
+POST http://localhost:5000/api/tutors/onboard
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTA0MTk1MDEsImV4cCI6MTc5MDUwNTkwMX0.vAZnh1S3-6o-Gtcq2HaptH1IXtwdxCHI3nkdg9cEL6s
+
+ 
+{
+  "subject_expertise": "9th-10th Grade Physics & Algebra",
+  "bio": "Extremely passionate education professional with 5 years experience coaching high school metrics.",
+  "hourly_rate": "abc"
+}
+ 
+### TEST CASE 10D (OPTIONAL): Try the Tutor Route with the STUDENT Token (Should Fail)
+POST http://localhost:5000/api/tutors/onboard
+Content-Type: application/json
+Authorization: Bearer INSERT_YOUR_STUDENT_TOKEN_HERE
+ 
+{
+  "subject_expertise": "Mathematics",
+  "bio": "A student should never be able to create this profile.",
+  "hourly_rate": 20
+}
+
