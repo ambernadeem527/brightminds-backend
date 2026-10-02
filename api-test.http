@@ -124,3 +124,58 @@ Authorization: Bearer INSERT_YOUR_STUDENT_TOKEN_HERE
   "hourly_rate": 20
 }
 
+
+### =========================================================================
+### DAY 11: ADVANCED SEARCH MECHANICS & FILTERING TESTS
+### =========================================================================
+
+### TEST CASE 11-S1: Register a Second Tutor (Setup)
+POST http://localhost:5000/api/users/register
+Content-Type: application/json
+
+{
+  "email": "james.wilson@brightminds.com",
+  "password": "TutorSecurePassword456",
+  "role": "TUTOR"
+}
+
+### TEST CASE 11-S2: Log In as the Second Tutor (Copy the Token)
+POST http://localhost:5000/api/users/login
+Content-Type: application/json
+
+{
+  "email": "james.wilson@brightminds.com",
+  "password": "TutorSecurePassword456"
+}
+
+### TEST CASE 11-S3: Onboard the Second Tutor (Paste James's Token)
+POST http://localhost:5000/api/tutors/onboard
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJqYW1lcy53aWxzb25AYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlRVVE9SIiwiaWF0IjoxNzkwOTUzNDk5LCJleHAiOjE3OTEwMzk4OTl9.b_MwMbRqOq8hLmnBEF0ZJdE7YOVF_XPwLpBNgMnPPXo
+
+
+{
+  "subject_expertise": "6th-8th Grade General Mathematics",
+  "bio": "Extremely passionate education professional with a decade of classroom experience.",
+  "hourly_rate": 25.00
+}
+
+### TEST CASE 11A: Fetch Open Tutor Directory (No Filters Passed - Returns All)
+GET http://localhost:5000/api/tutors
+
+### TEST CASE 11B: Filter Directory by Subject Pattern (Case-Insensitive Match)
+GET http://localhost:5000/api/tutors?subject=physics
+
+### TEST CASE 11C: Filter Directory by Upper Pricing Budget Boundary Limit
+GET http://localhost:5000/api/tutors?maxPrice=40
+
+### TEST CASE 11D: Combine Subject and Price Parameters Together Simultaneously
+GET http://localhost:5000/api/tutors?subject=math&maxPrice=30
+
+### TEST CASE 11E: Bad Price Text Is Ignored Safely (Returns All, No Database Error)
+GET http://localhost:5000/api/tutors?maxPrice=abc
+
+### TEST CASE 11F: SQL Injection Attempt Is Treated as Plain Text (Returns Zero Matches)
+GET http://localhost:5000/api/tutors?subject=x'%20OR%20'1'%3D'1
+
+
