@@ -9,6 +9,8 @@ const db = require('./config/db');
 app.use(express.json());
 app.use('/api/users', require('./routes/users'));
 app.use('/api/tutors', require('./routes/tutors'));
+app.use('/api/bookings', require('./routes/bookings'));
+
 
 
 // Diagnostic Test Endpoint: Query real-time clocks directly from the SQL engine

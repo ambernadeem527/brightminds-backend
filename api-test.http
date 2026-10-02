@@ -179,3 +179,66 @@ GET http://localhost:5000/api/tutors?maxPrice=abc
 GET http://localhost:5000/api/tutors?subject=x'%20OR%20'1'%3D'1
 
 
+### TEST CASE 12A: Create a New Booking Entry (Using Student Token)
+POST http://localhost:5000/api/bookings
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTA5NjAwMTcsImV4cCI6MTc5MTA0NjQxN30.dYhD95v-iAucaYj_htBsPHzTWO7pWYsGi0YfQoX8x4U
+
+ 
+{
+  "tutor_id": 1,
+  "booking_date": "2027-12-15T16:00:00.000Z"
+}
+ 
+### TEST CASE 12B: Create Booking for Non-Existent Tutor ID (Should Fail)
+POST http://localhost:5000/api/bookings
+Content-Type: application/json
+Authorization: Bearer INSERT_YOUR_STUDENT_TOKEN_HERE
+ 
+{
+  "tutor_id": 9999,
+  "booking_date": "2027-12-15T16:00:00.000Z"
+}
+ 
+### TEST CASE 12C: Tutor Token Tries to Create a Booking (Should Fail)
+POST http://localhost:5000/api/bookings
+Content-Type: application/json
+Authorization: Bearer INSERT_YOUR_TUTOR_TOKEN_HERE
+ 
+{
+  "tutor_id": 1,
+  "booking_date": "2027-12-15T16:00:00.000Z"
+}
+ 
+### TEST CASE 12D: Invalid Date Text (Should Fail)
+POST http://localhost:5000/api/bookings
+Content-Type: application/json
+Authorization: Bearer INSERT_YOUR_STUDENT_TOKEN_HERE
+ 
+{
+  "tutor_id": 1,
+  "booking_date": "next tuesday afternoon"
+}
+ 
+### TEST CASE 12E: Date in the Past (Should Fail)
+POST http://localhost:5000/api/bookings
+Content-Type: application/json
+Authorization: Bearer INSERT_YOUR_STUDENT_TOKEN_HERE
+ 
+{
+  "tutor_id": 1,
+  "booking_date": "2020-01-15T16:00:00.000Z"
+}
+ 
+### TEST CASE 12F: Non-Numeric Tutor ID (Should Fail)
+POST http://localhost:5000/api/bookings
+Content-Type: application/json
+Authorization: Bearer INSERT_YOUR_STUDENT_TOKEN_HERE
+ 
+{
+  "tutor_id": "abc",
+  "booking_date": "2027-12-15T16:00:00.000Z"
+}
+
+
+
