@@ -241,4 +241,36 @@ Authorization: Bearer INSERT_YOUR_STUDENT_TOKEN_HERE
 }
 
 
+### TEST CASE 13A: Tutor Approves a Booking Request (Updates State to CONFIRMED)
+PUT http://localhost:5000/api/bookings/1/status
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJzYXJhaC5raGFuQGJyaWdodG1pbmRzLmNvbSIsInJvbGUiOiJUVVRPUiIsImlhdCI6MTc5MDk2MjY3OCwiZXhwIjoxNzkxMDQ5MDc4fQ.PzFpGH78_kqcdX00_XPPkxYceT-C1VuzAtxLwC-JoXo
+
+ 
+{
+  "status": "CONFIRMED"
+}
+ 
+### TEST CASE 13B: Attempt Status Change with Invalid Status String (Should Fail)
+PUT http://localhost:5000/api/bookings/1/status
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJzYXJhaC5raGFuQGJyaWdodG1pbmRzLmNvbSIsInJvbGUiOiJUVVRPUiIsImlhdCI6MTc5MDk2MjkwMSwiZXhwIjoxNzkxMDQ5MzAxfQ.62LvN1N5aXcAZjO4oVEgAJvEgPJS7yTfupifT-eHkz8
+
+ 
+{
+  "status": "BAD_STATUS_STRING"
+}
+ 
+### TEST CASE 13C: Student Token Tries to Change a Status (Should Fail)
+PUT http://localhost:5000/api/bookings/1/status
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTA5NjMxNzgsImV4cCI6MTc5MTA0OTU3OH0.35JEHLnef9IUHWtHH3UNtOigKSdWIJT9lC_3xeTsVZ0
+
+ 
+{
+  "status": "CONFIRMED"
+}
+
+
+
 
