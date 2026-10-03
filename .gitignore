@@ -1,2 +1,13 @@
 node_modules/ 
 .env
+
+# Dependencies: anyone can rebuild this folder by running "npm install"
+node_modules/
+
+# Secrets: NEVER commit real passwords, tokens or signing keys
+.env
+
+# Operating system and editor clutter
+.DS_Store
+Thumbs.db
+*.log

@@ -26,7 +26,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiO
 
 ### TEST CASE 6: Fetch Profile Details via Valid Bearer Token
 GET http://localhost:5000/api/users/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTAyNTA5OTcsImV4cCI6MTc5MDMzNzM5N30.il1aMo_Tsa11UYLzFoOB2uXVARj97KXo5cty5BTpazM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTEwNDk0ODksImV4cCI6MTc5MTEzNTg4OX0.vV2hGd3-Yqu9SLQTWY3cnyxZGb6j2s86lPD19GKieco
+
+
+
 
  
 ### TEST CASE 7: Attempt Entry to Admin Portal using STUDENT Token (Should Fail)
@@ -80,7 +83,8 @@ Content-Type: application/json
 ### TEST CASE 10: Complete the Tutor Profile Onboarding (Using the Tutor Token)
 POST http://localhost:5000/api/tutors/onboard
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJzYXJhaC5raGFuQGJyaWdodG1pbmRzLmNvbSIsInJvbGUiOiJUVVRPUiIsImlhdCI6MTc5MDMzNzM3NCwiZXhwIjoxNzkwNDIzNzc0fQ.Umxqf2VLOhTZU0CXpCtR9R2BjGpxrlRPTFONExsmv7o
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJzYXJhaC5raGFuQGJyaWdodG1pbmRzLmNvbSIsInJvbGUiOiJUVVRPUiIsImlhdCI6MTc5MTA1MDM0OCwiZXhwIjoxNzkxMTM2NzQ4fQ.HdWqcFXAHv83fOZfmXT1NlaL8PdutrkbZDZUxVO3kgs
+
 
  
 {

@@ -16,6 +16,14 @@ const db = require('./config/db');
 // Global Middleware Layer: parse raw text bodies into JSON objects (req.body)
 // This MUST stay above the route mounts.
 app.use(express.json());
+
+// TEMPORARY DAY 15 DIAGNOSTIC LOGGER - Remove before final push
+app.use((req, res, next) => {
+  console.log(`[Diagnostic] Incoming Request: ${req.method} ${req.url}`);
+  console.log(`[Diagnostic] Auth Header Received:`, req.headers['authorization']);
+  next();
+});
+
  
 // Import and mount our modular routing channels
 app.use('/api/users', require('./routes/users'));
