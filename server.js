@@ -1,58 +1,54 @@
+// server.js
+// ---------------------------------------------------------------------------
+// DAY 14 - Application entry point with centralized error handling
+// ---------------------------------------------------------------------------
+ 
+// Load variables from the .env file into process.env. This must run FIRST.
 require('dotenv').config();
+ 
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Import our centralized database query bridge module
+const PORT = process.env.PORT || 5000;
+ 
+// Import our database configuration unit (used by the diagnostic route below)
 const db = require('./config/db');
-
+ 
+// Global Middleware Layer: parse raw text bodies into JSON objects (req.body)
+// This MUST stay above the route mounts.
 app.use(express.json());
+ 
+// Import and mount our modular routing channels
 app.use('/api/users', require('./routes/users'));
 app.use('/api/tutors', require('./routes/tutors'));
 app.use('/api/bookings', require('./routes/bookings'));
-
-
-
-// Diagnostic Test Endpoint: Query real-time clocks directly from the SQL engine
-app.get('/api/db-test', async (req, res) => {
-    try {
-        // Query the database engine for its current internal time
-        const dbResult = await db.query('SELECT NOW();');
-        res.status(200).json({
-            success: true,
-            message: "Database communication channel is running perfectly!",
-            timestamp: dbResult.rows[0].now
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({
-            success: false,
-            message: "Database connection failure. Check your credentials.",
-            error: error.message
-        });
-    }
+ 
+// Primary baseline welcome gate route
+app.get('/', (req, res) => {
+  res.send('Welcome to the BrightMinds Online Tuition & Tutor Matching API Engine!');
 });
-
+ 
+// Diagnostic Simulation Route: purposefully trigger a database error to test
+// our new engine. TEMPORARY - remove this route before any real deployment.
+app.get('/api/cause-crash', async (req, res, next) => {
+  try {
+    // Run a broken SQL statement against a non-existent column to force a crash
+    const brokenResult = await db.query('SELECT SEVERE_ERROR_COLUMN FROM tutors;');
+    return res.status(200).json({ success: true, data: brokenResult.rows });
+  } catch (error) {
+    // CRITICAL UPDATE: pass the error object to the global handler using next()
+    next(error);
+  }
+});
+ 
+// REGISTRATION RULE: global error handling middleware must be registered LAST,
+// after all other application routes and corridors have been mounted!
+const globalErrorHandlerInstance = require('./middleware/errorHandler');
+app.use(globalErrorHandlerInstance);
+ 
 app.listen(PORT, () => {
-    console.log(`🚀 Server monitoring active on port: ${PORT}`);
+  console.log(`BrightMinds Enterprise Engine running smoothly on port: ${PORT}`);
 });
 
-// Verification Endpoint: Check if all structural tables exist in our public database schema
-app.get('/api/schema-verify', async (req, res) => {
-    try {
-        const tableAudit = await db.query(`
-            SELECT table_name 
-            FROM information_schema.tables 
-            WHERE table_schema = 'public';
-        `);
-        res.status(200).json({
-            success: true,
-            found_tables: tableAudit.rows.map(row => row.table_name)
-        });
-    } catch (err) {
-        res.status(500).json({ success: false, error: err.message });
-    }
-});
 
 
 

@@ -272,5 +272,22 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiO
 }
 
 
+### TEST CASE 14: Trigger the Centralized Exception Handler (Simulates a System Crash)
+GET http://localhost:5000/api/cause-crash
+ 
+### TEST CASE 14B: Send Broken JSON to a Real Route (Client Mistake, Should Return 400)
+POST http://localhost:5000/api/users/login
+Content-Type: application/json
+ 
+{
+  "email": "amber.student@brightminds.com",
+  "password":
+}
+ 
+### TEST CASE 14C: Confirm the Server Is Still Alive After Both Failures
+GET http://localhost:5000/api/tutors
+
+
+
 
 
