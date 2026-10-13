@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BrightMinds | Amber's Online Tuition, Class 1st to 10th Grade</title>
+<!--
+  BrightMinds public/index.html : Amber's personal tutoring portal.
+  One file, vanilla HTML/CSS/JS, relative fetch() URLs (works through Ngrok).
+  Amber: look for the "EDIT ME" comments to change rates, contact details, tutor ID and gallery stories.
+-->
+<style>
+:root{--navy:#0f172a;--navy2:#1e293b;--teal:#0d9488;--teal2:#0a6f66;--canvas:#f8fafc;--ink:#0f172a;--muted:#475569;--line:#dbe3ec;
+--serif:Georgia,"Times New Roman",serif;--sans:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{font-family:var(--sans);background:var(--canvas);color:var(--ink);line-height:1.55}
+h1,h2,h3{font-family:var(--serif);line-height:1.2;margin:0 0 .5rem}
+:focus-visible{outline:3px solid #5eead4;outline-offset:2px}
+.sidebar{position:fixed;inset:0 auto 0 0;width:270px;background:var(--navy);color:#e2e8f0;display:flex;flex-direction:column;padding:1.4rem 1rem;overflow-y:auto;z-index:10}
+.brand{font-family:var(--serif);font-size:1.4rem;color:#fff;padding:0 .5rem 1rem;border-bottom:1px solid #334155;margin-bottom:.9rem}
+.brand small{display:block;font-family:var(--sans);font-size:.78rem;color:#94a3b8}
+.nav{display:flex;flex-direction:column;gap:.2rem}
+.nav button{all:unset;cursor:pointer;padding:.7rem .85rem;border-radius:8px;color:#cbd5e1;border-left:3px solid transparent;transition:background .2s,color .2s}
+.nav button:hover{background:var(--navy2);color:#fff}
+.nav button.active{background:var(--navy2);color:#fff;border-left-color:var(--teal);font-weight:600}
+.nav button:focus-visible,.side-actions button:focus-visible{outline:3px solid #5eead4}
+.side-actions{margin-top:1rem;padding-top:1rem;border-top:1px solid #334155;display:flex;flex-direction:column;gap:.5rem}
+.side-actions button{all:unset;cursor:pointer;font-size:.88rem;padding:.55rem .75rem;border:1px solid #334155;border-radius:8px;color:#cbd5e1;transition:border-color .2s,color .2s}
+.side-actions button:hover{border-color:var(--teal);color:#fff}
+.side-actions .primary{background:var(--teal);color:#fff;border-color:var(--teal);font-weight:600;text-align:center}
+.side-actions .primary:hover{background:var(--teal2)}
+.session{margin-top:auto;padding:1rem .5rem 0;font-size:.85rem;color:#94a3b8}
+.session strong{color:#fff;display:block;word-break:break-all}
+.session button{all:unset;cursor:pointer;color:#5eead4;text-decoration:underline;margin-top:.3rem}
+main{margin-left:270px;padding:2.2rem clamp(1rem,4vw,3rem);max-width:1150px}
+.view{display:none}.view.active{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.view.active{animation:none}*{transition:none!important}}
+.hero{background:var(--navy);color:#fff;border-radius:14px;padding:clamp(1.5rem,4vw,3rem);border-bottom:6px solid var(--teal)}
+.hero h1{font-size:clamp(1.7rem,3.6vw,2.5rem);max-width:26ch}
+.hero p{color:#cbd5e1;max-width:62ch;margin:.7rem 0 0}
+.mentor{margin-top:1.2rem;padding:1rem 1.2rem;background:#12203a;border-left:4px solid var(--teal);border-radius:6px}
+.btnrow{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.3rem}
+.btn{background:var(--teal);color:#fff;border:0;border-radius:8px;padding:.7rem 1.2rem;font:inherit;font-weight:600;cursor:pointer;transition:background .2s;text-decoration:none;display:inline-block}
+.btn:hover{background:var(--teal2)}.btn:disabled{opacity:.6;cursor:wait}
+.btn.alt{background:transparent;border:1.5px solid #5eead4;color:#5eead4}.btn.alt:hover{background:#12203a}
+.btn.dark{background:var(--navy)}.btn.dark:hover{background:var(--navy2)}
+.sec{margin:2rem 0 .8rem}.sec p{margin:0;color:var(--muted)}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.track{background:#fff;border:1px solid var(--line);border-top:4px solid var(--teal);border-radius:10px;padding:1.2rem}
+.track .ico{font-size:1.8rem}.track h3{font-size:1.1rem}.track p{margin:0;color:var(--muted);font-size:.94rem}
+.subject{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.2rem;cursor:pointer;text-align:left;font:inherit;color:inherit;transition:border-color .2s,transform .2s}
+.subject:hover{border-color:var(--teal);transform:translateY(-2px)}
+.subject p{margin:0;color:var(--muted);font-size:.92rem}
+.badge{display:inline-block;background:#ccfbf1;color:#115e59;font-weight:700;font-size:.9rem;padding:.25rem .7rem;border-radius:999px;margin-bottom:.5rem}
+.pkg{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.4rem;display:flex;flex-direction:column;gap:.5rem}
+.pkg.feat{border:2px solid var(--teal)}
+.pkg h3{font-size:1.2rem;margin:0}.pkg .range{color:var(--teal2);font-weight:700;font-size:.92rem}
+.pkg .price{font-family:var(--serif);font-size:1.7rem}.pkg .price small{font-family:var(--sans);font-size:.85rem;color:var(--muted)}
+.pkg ul{margin:0;padding-left:1.1rem;color:var(--muted);font-size:.93rem;flex:1}
+.pkg .btn{text-align:center;border:0}
+.cta{background:#ecfeff;border:1px solid #99f6e4;border-radius:12px;padding:1.4rem 1.6rem;margin-top:2rem}
+.cta>p{margin:0 0 .7rem;font-weight:700;font-size:1.05rem}
+.cta ul{list-style:none;margin:0 0 .5rem;padding:0;display:grid;gap:.35rem}.cta small{color:var(--muted)}
+.page-title{margin-bottom:1.2rem}.page-title p{margin:0;color:var(--muted)}
+.panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.5rem;margin-bottom:1.2rem}
+.panel h2{font-size:1.3rem}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.2rem}
+label{display:block;font-weight:600;font-size:.9rem;margin:.9rem 0 .3rem}
+input,select,textarea{width:100%;padding:.65rem .75rem;border:1px solid #b6c2d1;border-radius:8px;font:inherit;background:#fff;color:var(--ink)}
+.hint{font-size:.82rem;color:var(--muted);margin-top:.25rem}
+.row{display:flex;gap:1rem;flex-wrap:wrap}.row>div{flex:1 1 200px}
+form .btn{margin-top:1.1rem}
+.alert{border:1px solid;border-left-width:6px;border-radius:8px;padding:.85rem 1rem;margin-top:1rem;display:none}
+.alert.show{display:block}.alert strong{display:block}.alert ul{margin:.3rem 0 0;padding-left:1.1rem}
+.alert.ok{background:#ecfdf5;border-color:#10b981;color:#065f46}
+.alert.err{background:#fef2f2;border-color:#ef4444;color:#991b1b}
+.alert.warn{background:#fffbeb;border-color:#f59e0b;color:#92400e}
+.receipt{margin-top:1rem;border:1px solid #10b981;background:#ecfdf5;border-radius:10px;padding:1rem 1.2rem;display:none}
+.receipt.show{display:block}.receipt dl{display:grid;grid-template-columns:max-content 1fr;gap:.3rem 1rem;margin:.5rem 0 0}
+.receipt dt{font-weight:600}.receipt dd{margin:0}
+.pill{background:#f59e0b;color:#fff;border-radius:999px;padding:.1rem .6rem;font-size:.8rem;font-weight:700}
+.modal-bg{position:fixed;inset:0;background:rgba(15,23,42,.65);display:none;align-items:center;justify-content:center;padding:1rem;z-index:50}
+.modal-bg.show{display:flex}
+.modal{background:#fff;border-radius:14px;max-width:560px;width:100%;padding:1.6rem;border-top:6px solid var(--teal);max-height:90vh;overflow-y:auto}
+.modal h2{font-size:1.35rem}.modal p{color:var(--muted)}
+.story{border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:8px;padding:.8rem 1rem;margin:.7rem 0}
+.story b{font-family:var(--serif);font-size:1.1rem;color:var(--teal2)}.story p{margin:.2rem 0 0;font-size:.92rem}
+@media (max-width:860px){.sidebar{position:static;width:auto}.nav{flex-direction:row;flex-wrap:wrap}.side-actions{flex-direction:row;flex-wrap:wrap}main{margin-left:0}}
+</style>
+</head>
+<body>
+
+<aside class="sidebar" aria-label="Main navigation">
+  <div class="brand">BrightMinds<small>Amber's Online Tuition · Class 1st to 10th Grade</small></div>
+  <nav class="nav" role="tablist">
+    <button type="button" role="tab" class="active" data-view="home">🏠 Home</button>
+    <button type="button" role="tab" data-view="auth">🔐 Sign In / Register</button>
+    <button type="button" role="tab" data-view="booking">📅 Book a Lesson</button>
+  </nav>
+  <div class="side-actions">
+    <button type="button" class="primary" data-modal="assessment">Book Free Assessment Call</button>
+    <button type="button" data-modal="gallery">View Student A-Grade Success Gallery</button>
+  </div>
+  <div class="session" id="session"></div>
+</aside>
+
+<main>
+<!-- ================= HOME ================= -->
+<section class="view active" id="view-home">
+  <div class="hero">
+    <h1>BrightMinds Online Tuition — Shaping A-Grade Students Globally</h1>
+    <p>Premium one-to-one instruction from Amber for Class 1st Grade up to Class 10th Grade, covering Primary, Middle and Secondary curriculum spans.</p>
+    <div class="mentor"><strong>4+ Years of Global Teaching Experience</strong> coaching Class 1st to 10th Grade students to academic mastery.</div>
+    <div class="btnrow">
+      <button class="btn" type="button" data-modal="assessment">Book Free Assessment Call</button>
+      <button class="btn alt" type="button" data-modal="gallery">View Student A-Grade Success Gallery</button>
+    </div>
+  </div>
+
+  <div class="sec"><h2>Core Academic Program Tracks</h2><p>For every learner from Class 1st Grade up to Class 10th Grade.</p></div>
+  <div class="grid">
+    <article class="track"><div class="ico" aria-hidden="true">📅</div><h3>Year-Round Support</h3><p>Comprehensive, continuous syllabus tracking available 365 days a year, at any time.</p></article>
+    <article class="track"><div class="ico" aria-hidden="true">🏖️</div><h3>Vacation Crash Courses</h3><p>Intensive subject study blocks and fast-track remediation during school holidays.</p></article>
+    <article class="track"><div class="ico" aria-hidden="true">📝</div><h3>Critical Exam Prep</h3><p>Target revision sessions designed to maximize scores right before midterm and final exams.</p></article>
+  </div>
+
+  <div class="sec"><h2>Subjects Amber Teaches</h2><p>Class 1st to 10th Grade. Select a subject to ask about it in your free assessment.</p></div>
+  <div class="grid">
+    <button type="button" class="subject" data-subject="Mathematics"><span class="badge">📐 Mathematics</span><p>Mental Arithmetic, Fractions, Algebra &amp; Core Geometry</p></button>
+    <button type="button" class="subject" data-subject="General Science &amp; Physics"><span class="badge">🧪 General Science &amp; Physics</span><p>Foundational Sciences up to 10th Grade Physics metrics</p></button>
+    <button type="button" class="subject" data-subject="English Literacy"><span class="badge">📚 English Literacy</span><p>Grammar, Creative Essay Writing, Phonics &amp; Global Communication</p></button>
+    <button type="button" class="subject" data-subject="Social Studies"><span class="badge">🌍 Social Studies</span><p>History, Geography Layouts &amp; Academic General Knowledge</p></button>
+  </div>
+
+  <!-- EDIT ME: package names are final; prices below are SAMPLE figures. Replace with Amber's real fees. -->
+  <div class="sec"><h2>Course Tuition Packages</h2><p>Choose the package that matches your child's grade. Rates shown are per lesson hour.</p></div>
+  <div class="grid">
+    <article class="pkg">
+      <span class="range">Primary Tiers · Class 1st to 5th Grade</span>
+      <h3>Foundations Package</h3>
+      <div class="price">$20 <small>/ hour</small></div>
+      <ul><li>Phonics, mental arithmetic and reading confidence</li><li>Weekly progress notes for parents</li><li>Homework support</li></ul>
+      <button class="btn" type="button" data-modal="assessment" data-pkg="Foundations Package (Class 1st to 5th)">Start with a free call</button>
+    </article>
+    <article class="pkg feat">
+      <span class="range">Middle School Tiers · Class 6th to 8th Grade</span>
+      <h3>Advancement Package</h3>
+      <div class="price">$28 <small>/ hour</small></div>
+      <ul><li>Algebra, essay writing and science concepts</li><li>Monthly topic tests</li><li>Study-skills coaching</li></ul>
+      <button class="btn" type="button" data-modal="assessment" data-pkg="Advancement Package (Class 6th to 8th)">Start with a free call</button>
+    </article>
+    <article class="pkg">
+      <span class="range">Secondary/Exam Tiers · Class 9th and 10th Grade</span>
+      <h3>Mastery Blueprint Package</h3>
+      <div class="price">$36 <small>/ hour</small></div>
+      <ul><li>Physics, geometry and exam-board practice</li><li>Past-paper drills and timed mocks</li><li>Targeted revision plan</li></ul>
+      <button class="btn" type="button" data-modal="assessment" data-pkg="Mastery Blueprint Package (Class 9th and 10th)">Start with a free call</button>
+    </article>
+  </div>
+
+  <!-- EDIT ME: contact details -->
+  <div class="cta">
+    <p>Want to secure your child's A-Grade? Reach out to us directly for personalized consultations!</p>
+    <ul>
+      <li>📞 Phone: +1 (800) 555-MIND (6463) <small>· Academic Hotline</small></li>
+      <li>✉️ Email: amber.admissions@brightminds-academy.com</li>
+      <li>🌐 Virtual Interactive Classrooms Running Globally across All Timezones.</li>
+    </ul>
+    <button class="btn" type="button" data-modal="assessment">Book Free Assessment Call</button>
+  </div>
+</section>
+
+<!-- ================= AUTH ================= -->
+<section class="view" id="view-auth">
+  <div class="page-title"><h1>Parent &amp; student account</h1><p>Create an account to book lessons with Amber.</p></div>
+  <div class="grid2">
+    <div class="panel"><h2>Create account</h2>
+      <form id="registerForm" novalidate>
+        <label for="r-email">Email</label><input id="r-email" type="email" autocomplete="email">
+        <label for="r-pass">Password</label><input id="r-pass" type="password" autocomplete="new-password">
+        <label for="r-role">I am a</label><select id="r-role"><option value="STUDENT">STUDENT</option><option value="TUTOR">TUTOR</option></select>
+        <div class="hint">Parents and students should choose STUDENT.</div>
+        <button class="btn" type="submit" id="registerBtn">Create account</button>
+      </form>
+      <div class="alert" id="registerAlert" role="alert"></div>
+    </div>
+    <div class="panel"><h2>Log in</h2>
+      <form id="loginForm" novalidate>
+        <label for="l-email">Email</label><input id="l-email" type="email" autocomplete="email">
+        <label for="l-pass">Password</label><input id="l-pass" type="password" autocomplete="current-password">
+        <label for="l-role">Role</label><select id="l-role"><option value="STUDENT">STUDENT</option><option value="TUTOR">TUTOR</option></select>
+        <button class="btn dark" type="submit" id="loginBtn">Log in</button>
+      </form>
+      <div class="alert" id="loginAlert" role="alert"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BOOKING ================= -->
+<section class="view" id="view-booking">
+  <div class="page-title"><h1>Book a lesson with Amber</h1><p>Log in as a student, pick a date and time, and Amber receives your request.</p></div>
+  <div class="panel">
+    <form id="bookingForm" novalidate>
+      <label for="b-date">Booking Date</label>
+      <input id="b-date" type="datetime-local">
+      <div class="hint">Times use your device's timezone.</div>
+      <button class="btn" type="submit" id="bookingBtn">Book my lesson</button>
+    </form>
+    <div class="alert" id="bookingAlert" role="alert"></div>
+    <div class="receipt" id="bookingReceipt" aria-live="polite"></div>
+  </div>
+</section>
+</main>
+
+<!-- ================= MODAL ================= -->
+<div class="modal-bg" id="modalBg" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal" id="modalBody"></div></div>
+
+<script>
+(function () {
+  'use strict';
+  var TOKEN_KEY = 'brightminds_token';
+  var AMBER_TUTOR_ID = 1;                 // EDIT ME: Amber's Tutor ID in the database
+  var ADMISSIONS_EMAIL = 'amber.admissions@brightminds-academy.com';  // EDIT ME
+
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (v) {
+    return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  };
+  function getToken() { try { return localStorage.getItem(TOKEN_KEY); } catch (e) { return null; } }
+  function saveToken(t) { try { localStorage.setItem(TOKEN_KEY, t); return true; } catch (e) { return false; } }
+  function clearToken() { try { localStorage.removeItem(TOKEN_KEY); } catch (e) {} }
+  function claims(t) {
+    try { return JSON.parse(decodeURIComponent(escape(atob(t.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))))); }
+    catch (e) { return null; }
+  }
+
+  /* ---------- Alerts ---------- */
+  function showAlert(id, type, title, detail) {
+    var body = Array.isArray(detail)
+      ? '<ul>' + detail.map(function (d) { return '<li>' + esc(d) + '</li>'; }).join('') + '</ul>'
+      : (detail ? '<div>' + esc(detail) + '</div>' : '');
+    var b = $(id); b.className = 'alert show ' + type; b.innerHTML = '<strong>' + esc(title) + '</strong>' + body;
+  }
+  function clearAlert(id) { var b = $(id); if (b) { b.className = 'alert'; b.innerHTML = ''; } }
+  function busy(id, on, label) {
+    var b = $(id);
+    if (on) { b.dataset.l = b.textContent; b.textContent = label; b.disabled = true; }
+    else { b.textContent = b.dataset.l || b.textContent; b.disabled = false; }
+  }
+
+  /* ---------- fetch wrapper with friendly errors ---------- */
+  function ApiError(status, title, details) { this.status = status; this.title = title; this.details = details; }
+  function details(d) {
+    if (!d) return null;
+    if (Array.isArray(d.errors)) return d.errors.map(function (e) { return typeof e === 'string' ? e : (e.message || e.msg || JSON.stringify(e)); });
+    if (Array.isArray(d.details)) return d.details.map(String);
+    return d.error || d.message || null;
+  }
+  var TITLES = {
+    400: ['Some details need fixing (400 Bad Request)', 'Check the fields and try again.'],
+    401: ['Please log in again (401 Unauthorized)', 'Your session is missing or has expired.'],
+    403: ['Access denied (403 Forbidden)', 'Your account is not allowed to do this. Log in with a STUDENT account to book lessons.'],
+    404: ['Not found (404)', 'The server could not find what you asked for.'],
+    409: ['Already exists (409 Conflict)', 'That record is already in the system.'],
+    429: ['Too many attempts (429)', 'Wait a moment, then try again.']
+  };
+  function api(path, opts, auth) {
+    opts = opts || {}; opts.headers = { 'Accept': 'application/json' };
+    if (opts.body) opts.headers['Content-Type'] = 'application/json';
+    if (auth) {
+      var t = getToken();
+      if (!t) return Promise.reject(new ApiError(401, 'You are not logged in', 'Open "Sign In / Register", log in, then try again.'));
+      opts.headers['Authorization'] = 'Bearer ' + t;
+    }
+    return fetch(path, opts).then(function (res) {
+      return res.text().then(function (txt) {
+        var data = null;
+        try { data = txt ? JSON.parse(txt) : null; } catch (e) { data = { message: txt.slice(0, 200) }; }
+        if (res.ok) return data;
+        var d = details(data), m = TITLES[res.status];
+        if (!m) m = [res.status >= 500 ? 'Server problem (' + res.status + ')' : 'Request failed (' + res.status + ')', 'Something went wrong. Please try again shortly.'];
+        throw new ApiError(res.status, m[0], d || m[1]);
+      });
+    }, function () {
+      throw new ApiError(0, 'Cannot reach the server', 'Check your internet connection. If you use the Ngrok link, confirm the tunnel and the server are running.');
+    });
+  }
+  function fail(id, err) {
+    if (err instanceof ApiError) {
+      showAlert(id, err.status === 401 ? 'warn' : 'err', err.title, err.details);
+      if (err.status === 401) { clearToken(); session(); }
+    } else showAlert(id, 'err', 'Unexpected error', (err && err.message) || 'Reload the page and try again.');
+  }
+
+  /* ---------- Tabs & session ---------- */
+  var tabs = document.querySelectorAll('.nav button');
+  function show(name) {
+    tabs.forEach(function (b) { var on = b.dataset.view === name; b.classList.toggle('active', on); b.setAttribute('aria-selected', on); });
+    document.querySelectorAll('.view').forEach(function (v) { v.classList.toggle('active', v.id === 'view-' + name); });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  tabs.forEach(function (b) { b.addEventListener('click', function () { show(b.dataset.view); }); });
+
+  function session() {
+    var t = getToken(), box = $('session');
+    if (!t) { box.textContent = 'Not signed in'; return; }
+    var c = claims(t) || {};
+    box.innerHTML = 'Signed in as<strong>' + esc(c.email || c.name || (c.id ? 'User #' + c.id : 'your account')) + '</strong>' +
+      (c.role ? 'Role: ' + esc(c.role) + '<br>' : '') + '<button type="button" id="logoutBtn">Log out</button>';
+    $('logoutBtn').addEventListener('click', function () {
+      clearToken(); session(); show('auth'); showAlert('loginAlert', 'ok', 'Logged out', 'Your token was removed from this browser.');
+    });
+  }
+
+  /* ---------- Modals ---------- */
+  // EDIT ME: SAMPLE stories. Replace with Amber's real (anonymous) results before going live.
+  var STORIES = [
+    ['Class 4 · Mathematics', 'C to A', 'Fractions finally clicked after six weeks of visual practice.'],
+    ['Class 7 · English', 'D to B+', 'Essay structure and grammar drills lifted writing marks term by term.'],
+    ['Class 9 · Physics', 'C+ to A', 'Weekly problem sets and timed mocks built exam confidence.'],
+    ['Class 10 · Mathematics', 'B to A+', 'Past-paper strategy closed the gap before the final exams.']
+  ];
+  var GRADES = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th'];
+
+  function assessmentHTML(subject, pkg) {
+    var opts = GRADES.map(function (g) { return '<option value="Class ' + g + ' Grade">Class ' + g + ' Grade</option>'; }).join('');
+    return '<h2 id="modalTitle">Book your free assessment call</h2>' +
+      '<p>A short diagnostic consultation with Amber to find your child\'s level (Class 1st to 10th Grade) and plan next steps.</p>' +
+      '<form id="assessForm" novalidate>' +
+      '<label for="a-child">Child\'s name</label><input id="a-child" type="text" autocomplete="off">' +
+      '<label for="a-grade">Grade</label><select id="a-grade"><option value="">Select grade</option>' + opts + '</select>' +
+      '<label for="a-parent">Parent name</label><input id="a-parent" type="text" autocomplete="name">' +
+      '<label for="a-contact">Phone or email</label><input id="a-contact" type="text" autocomplete="email">' +
+      '<label for="a-note">Subject or package of interest (optional)</label><input id="a-note" type="text" value="' + esc(subject || pkg || '') + '">' +
+      '<div class="alert" id="assessAlert" role="alert"></div>' +
+      '<button class="btn" type="submit">Request my call</button> ' +
+      '<button class="btn dark" type="button" data-close>Close</button></form>';
+  }
+  function galleryHTML() {
+    return '<h2 id="modalTitle">Student A-Grade Success Gallery</h2>' +
+      '<p>Anonymous grade jumps from Amber\'s 4+ years of global coaching, Class 1st to 10th Grade.</p>' +
+      STORIES.map(function (s) {
+        return '<div class="story"><b>' + esc(s[1]) + '</b> · ' + esc(s[0]) + '<p>' + esc(s[2]) + '</p></div>';
+      }).join('') +
+      '<button class="btn" type="button" data-close style="margin-top:.8rem">Close</button>';
+  }
+  function openModal(key, ctx) {
+    ctx = ctx || {};
+    $('modalBody').innerHTML = key === 'gallery' ? galleryHTML() : assessmentHTML(ctx.subject, ctx.pkg);
+    $('modalBg').classList.add('show');
+    $('modalBody').querySelectorAll('[data-close]').forEach(function (b) { b.addEventListener('click', closeModal); });
+    var f = $('assessForm');
+    if (f) f.addEventListener('submit', submitAssessment);
+  }
+  function closeModal() { $('modalBg').classList.remove('show'); }
+
+  // The assessment request is prepared as an email to Amber (no backend endpoint is required).
+  function submitAssessment(e) {
+    e.preventDefault(); clearAlert('assessAlert');
+    var child = $('a-child').value.trim(), grade = $('a-grade').value, parent = $('a-parent').value.trim(),
+        contact = $('a-contact').value.trim(), note = $('a-note').value.trim(), p = [];
+    if (!child) p.push("Enter your child's name.");
+    if (!grade) p.push('Select your child\'s grade (1st to 10th).');
+    if (!parent) p.push('Enter the parent name.');
+    if (!contact) p.push('Enter a phone number or email so Amber can reach you.');
+    if (p.length) { showAlert('assessAlert', 'err', 'Please fix the following', p); return; }
+    var body = 'Free assessment call request\n\nChild: ' + child + '\nGrade: ' + grade + '\nParent: ' + parent +
+      '\nContact: ' + contact + (note ? '\nInterest: ' + note : '');
+    var href = 'mailto:' + ADMISSIONS_EMAIL + '?subject=' + encodeURIComponent('Free assessment call: ' + child) + '&body=' + encodeURIComponent(body);
+    var box = $('assessAlert');
+    box.className = 'alert show ok';
+    box.innerHTML = '<strong>Details ready for Amber</strong><div>Press the button to send them by email, or call +1 (800) 555-MIND (6463).</div>' +
+      '<a class="btn" style="margin-top:.6rem" href="' + href + '">Send request by email</a>';
+  }
+
+  document.querySelectorAll('[data-modal]').forEach(function (b) {
+    b.addEventListener('click', function () { openModal(b.dataset.modal, { pkg: b.dataset.pkg }); });
+  });
+  document.querySelectorAll('.subject').forEach(function (b) {
+    b.addEventListener('click', function () { openModal('assessment', { subject: b.dataset.subject.replace(/&amp;/g, '&') }); });
+  });
+  $('modalBg').addEventListener('click', function (e) { if (e.target === $('modalBg')) closeModal(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+
+  /* ---------- Register: POST /api/users/register ---------- */
+  $('registerForm').addEventListener('submit', function (e) {
+    e.preventDefault(); clearAlert('registerAlert');
+    var email = $('r-email').value.trim(), pass = $('r-pass').value, role = $('r-role').value, p = [];
+    if (!/^\S+@\S+\.\S+$/.test(email)) p.push('Enter a valid email address.');
+    if (pass.length < 6) p.push('Use a password of at least 6 characters.');
+    if (p.length) { showAlert('registerAlert', 'err', 'Please fix the following', p); return; }
+    busy('registerBtn', true, 'Creating...');
+    api('/api/users/register', { method: 'POST', body: JSON.stringify({ email: email, password: pass, role: role }) }).then(function () {
+      showAlert('registerAlert', 'ok', 'Account created', 'You can now log in with ' + email + '.');
+      $('l-email').value = email; $('l-role').value = role; $('registerForm').reset();
+    }).catch(function (err) { fail('registerAlert', err); }).then(function () { busy('registerBtn', false); });
+  });
+
+  /* ---------- Login: POST /api/users/login, token saved to localStorage ---------- */
+  $('loginForm').addEventListener('submit', function (e) {
+    e.preventDefault(); clearAlert('loginAlert');
+    var email = $('l-email').value.trim(), pass = $('l-pass').value, role = $('l-role').value;
+    if (!email || !pass) { showAlert('loginAlert', 'err', 'Missing details', 'Enter both your email and password.'); return; }
+    busy('loginBtn', true, 'Logging in...');
+    api('/api/users/login', { method: 'POST', body: JSON.stringify({ email: email, password: pass, role: role }) }).then(function (data) {
+      var token = typeof data === 'string' ? data : (data && (data.token || data.accessToken || data.jwt));
+      if (!token) throw new ApiError(500, 'Login reply had no token', 'The server accepted the login but returned no token.');
+      if (!saveToken(token)) throw new ApiError(0, 'Could not save your session', 'Your browser blocked local storage. Allow site data and retry.');
+      $('loginForm').reset(); session();
+      showAlert('loginAlert', 'ok', 'Logged in', 'You can now book a lesson with Amber.');
+    }).catch(function (err) { fail('loginAlert', err); }).then(function () { busy('loginBtn', false); });
+  });
+
+  /* ---------- Booking: POST /api/bookings (Bearer token, tutorId fixed to Amber) ---------- */
+  $('bookingForm').addEventListener('submit', function (e) {
+    e.preventDefault(); clearAlert('bookingAlert'); $('bookingReceipt').className = 'receipt';
+    var when = $('b-date').value, p = [];
+    if (!when) p.push('Choose a booking date and time.');
+    else if (new Date(when).getTime() < Date.now()) p.push('Pick a date and time in the future.');
+    if (p.length) { showAlert('bookingAlert', 'err', 'Please fix the following', p); return; }
+    var payload = { tutorId: AMBER_TUTOR_ID, bookingDate: new Date(when).toISOString() };
+    busy('bookingBtn', true, 'Booking...');
+    api('/api/bookings', { method: 'POST', body: JSON.stringify(payload) }, true).then(function (data) {
+      var b = (data && (data.booking || data)) || {}, r = $('bookingReceipt');
+      r.innerHTML = '<strong>Booking received</strong> <span class="pill">' + esc(b.status || 'PENDING') + '</span><dl>' +
+        (b.id != null ? '<dt>Booking ID</dt><dd>' + esc(b.id) + '</dd>' : '') +
+        '<dt>Tutor</dt><dd>Amber</dd>' +
+        '<dt>When</dt><dd>' + esc(new Date(b.bookingDate || payload.bookingDate).toLocaleString()) + '</dd></dl>' +
+        '<p class="hint">Amber will confirm your request. The status stays PENDING until then.</p>';
+      r.className = 'receipt show'; $('bookingForm').reset();
+    }).catch(function (err) { fail('bookingAlert', err); }).then(function () { busy('bookingBtn', false); });
+  });
+
+  session();
+})();
+</script>
+</body>
+</html>

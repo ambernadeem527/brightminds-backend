@@ -22,20 +22,15 @@ GET http://localhost:5000/api/users/dashboard-sandbox
  
 ### TEST CASE 5: Access Protected Sandbox with Authentic Token Pass (Should Pass)
 GET http://localhost:5000/api/users/dashboard-sandbox
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTAxNjYzMjIsImV4cCI6MTc5MDI1MjcyMn0.U7VJHtb7c25t8D6ilkDJuFw94vWRjG3I97Pj92hse2M
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTE2MjQ1MzMsImV4cCI6MTc5MTcxMDkzM30.IZU9kng-3LomhO8OwMlUMxVrkFn5aHwToxN9ufB_EgM
 
 ### TEST CASE 6: Fetch Profile Details via Valid Bearer Token
 GET http://localhost:5000/api/users/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTEwNDk0ODksImV4cCI6MTc5MTEzNTg4OX0.vV2hGd3-Yqu9SLQTWY3cnyxZGb6j2s86lPD19GKieco
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTE2MjQ1MzMsImV4cCI6MTc5MTcxMDkzM30.IZU9kng-3LomhO8OwMlUMxVrkFn5aHwToxN9ufB_EgM
 
-
-
-
- 
 ### TEST CASE 7: Attempt Entry to Admin Portal using STUDENT Token (Should Fail)
 GET http://localhost:5000/api/users/admin-only-dashboard
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTAyNTEyNjksImV4cCI6MTc5MDMzNzY2OX0.oCVhvaNdI03s-xelw6qkuF32bszaB0CfJ8K4BMt_1Hw
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTE2MjQ1MzMsImV4cCI6MTc5MTcxMDkzM30.IZU9kng-3LomhO8OwMlUMxVrkFn5aHwToxN9ufB_EgM
 
 ### TEST CASE 7B (OPTIONAL): Register an ADMIN Account
 POST http://localhost:5000/api/users/register
@@ -60,7 +55,6 @@ Content-Type: application/json
 GET http://localhost:5000/api/users/admin-only-dashboard
 Authorization: Bearer INSERT_YOUR_ADMIN_TOKEN_HERE
 
-
 ### TEST CASE 8: Register a Brand New Tutor Identity Account
 POST http://localhost:5000/api/users/register
 Content-Type: application/json
@@ -84,8 +78,6 @@ Content-Type: application/json
 POST http://localhost:5000/api/tutors/onboard
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJzYXJhaC5raGFuQGJyaWdodG1pbmRzLmNvbSIsInJvbGUiOiJUVVRPUiIsImlhdCI6MTc5MTA1MDM0OCwiZXhwIjoxNzkxMTM2NzQ4fQ.HdWqcFXAHv83fOZfmXT1NlaL8PdutrkbZDZUxVO3kgs
-
-
  
 {
   "subject_expertise": "9th-10th Grade Physics & Algebra",
@@ -97,7 +89,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiO
 POST http://localhost:5000/api/tutors/onboard
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJzYXJhaC5raGFuQGJyaWdodG1pbmRzLmNvbSIsInJvbGUiOiJUVVRPUiIsImlhdCI6MTc5MDMzNzY5MiwiZXhwIjoxNzkwNDI0MDkyfQ.yVG05u-ZcpHL5_YxCgSqwJhDD51V1CnAU3uXlpozt4s
-
  
 {
   "subject_expertise": "9th-10th Grade Physics & Algebra",
@@ -109,7 +100,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiO
 POST http://localhost:5000/api/tutors/onboard
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTA0MTk1MDEsImV4cCI6MTc5MDUwNTkwMX0.vAZnh1S3-6o-Gtcq2HaptH1IXtwdxCHI3nkdg9cEL6s
-
  
 {
   "subject_expertise": "9th-10th Grade Physics & Algebra",
@@ -120,14 +110,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiO
 ### TEST CASE 10D (OPTIONAL): Try the Tutor Route with the STUDENT Token (Should Fail)
 POST http://localhost:5000/api/tutors/onboard
 Content-Type: application/json
-Authorization: Bearer INSERT_YOUR_STUDENT_TOKEN_HERE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTE2MjQ1MzMsImV4cCI6MTc5MTcxMDkzM30.IZU9kng-3LomhO8OwMlUMxVrkFn5aHwToxN9ufB_EgM
  
 {
   "subject_expertise": "Mathematics",
   "bio": "A student should never be able to create this profile.",
   "hourly_rate": 20
 }
-
 
 ### =========================================================================
 ### DAY 11: ADVANCED SEARCH MECHANICS & FILTERING TESTS
@@ -157,7 +146,6 @@ POST http://localhost:5000/api/tutors/onboard
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJqYW1lcy53aWxzb25AYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlRVVE9SIiwiaWF0IjoxNzkwOTUzNDk5LCJleHAiOjE3OTEwMzk4OTl9.b_MwMbRqOq8hLmnBEF0ZJdE7YOVF_XPwLpBNgMnPPXo
 
-
 {
   "subject_expertise": "6th-8th Grade General Mathematics",
   "bio": "Extremely passionate education professional with a decade of classroom experience.",
@@ -182,12 +170,10 @@ GET http://localhost:5000/api/tutors?maxPrice=abc
 ### TEST CASE 11F: SQL Injection Attempt Is Treated as Plain Text (Returns Zero Matches)
 GET http://localhost:5000/api/tutors?subject=x'%20OR%20'1'%3D'1
 
-
 ### TEST CASE 12A: Create a New Booking Entry (Using Student Token)
 POST http://localhost:5000/api/bookings
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTA5NjAwMTcsImV4cCI6MTc5MTA0NjQxN30.dYhD95v-iAucaYj_htBsPHzTWO7pWYsGi0YfQoX8x4U
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTE2MjQ1MzMsImV4cCI6MTc5MTcxMDkzM30.IZU9kng-3LomhO8OwMlUMxVrkFn5aHwToxN9ufB_EgM
  
 {
   "tutor_id": 1,
@@ -197,7 +183,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiO
 ### TEST CASE 12B: Create Booking for Non-Existent Tutor ID (Should Fail)
 POST http://localhost:5000/api/bookings
 Content-Type: application/json
-Authorization: Bearer INSERT_YOUR_STUDENT_TOKEN_HERE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTE2MjQ1MzMsImV4cCI6MTc5MTcxMDkzM30.IZU9kng-3LomhO8OwMlUMxVrkFn5aHwToxN9ufB_EgM
  
 {
   "tutor_id": 9999,
@@ -217,7 +203,7 @@ Authorization: Bearer INSERT_YOUR_TUTOR_TOKEN_HERE
 ### TEST CASE 12D: Invalid Date Text (Should Fail)
 POST http://localhost:5000/api/bookings
 Content-Type: application/json
-Authorization: Bearer INSERT_YOUR_STUDENT_TOKEN_HERE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTE2MjQ1MzMsImV4cCI6MTc5MTcxMDkzM30.IZU9kng-3LomhO8OwMlUMxVrkFn5aHwToxN9ufB_EgM
  
 {
   "tutor_id": 1,
@@ -227,71 +213,9 @@ Authorization: Bearer INSERT_YOUR_STUDENT_TOKEN_HERE
 ### TEST CASE 12E: Date in the Past (Should Fail)
 POST http://localhost:5000/api/bookings
 Content-Type: application/json
-Authorization: Bearer INSERT_YOUR_STUDENT_TOKEN_HERE
- 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTE2MjQ1MzMsImV4cCI6MTc5MTcxMDkzM30.IZU9kng-3LomhO8OwMlUMxVrkFn5aHwToxN9ufB_EgM
+
 {
   "tutor_id": 1,
-  "booking_date": "2020-01-15T16:00:00.000Z"
+  "booking_date": "2020-01-01T12:00:00.000Z"
 }
- 
-### TEST CASE 12F: Non-Numeric Tutor ID (Should Fail)
-POST http://localhost:5000/api/bookings
-Content-Type: application/json
-Authorization: Bearer INSERT_YOUR_STUDENT_TOKEN_HERE
- 
-{
-  "tutor_id": "abc",
-  "booking_date": "2027-12-15T16:00:00.000Z"
-}
-
-
-### TEST CASE 13A: Tutor Approves a Booking Request (Updates State to CONFIRMED)
-PUT http://localhost:5000/api/bookings/1/status
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJzYXJhaC5raGFuQGJyaWdodG1pbmRzLmNvbSIsInJvbGUiOiJUVVRPUiIsImlhdCI6MTc5MDk2MjY3OCwiZXhwIjoxNzkxMDQ5MDc4fQ.PzFpGH78_kqcdX00_XPPkxYceT-C1VuzAtxLwC-JoXo
-
- 
-{
-  "status": "CONFIRMED"
-}
- 
-### TEST CASE 13B: Attempt Status Change with Invalid Status String (Should Fail)
-PUT http://localhost:5000/api/bookings/1/status
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJzYXJhaC5raGFuQGJyaWdodG1pbmRzLmNvbSIsInJvbGUiOiJUVVRPUiIsImlhdCI6MTc5MDk2MjkwMSwiZXhwIjoxNzkxMDQ5MzAxfQ.62LvN1N5aXcAZjO4oVEgAJvEgPJS7yTfupifT-eHkz8
-
- 
-{
-  "status": "BAD_STATUS_STRING"
-}
- 
-### TEST CASE 13C: Student Token Tries to Change a Status (Should Fail)
-PUT http://localhost:5000/api/bookings/1/status
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhbWJlcjJAYnJpZ2h0bWluZHMuY29tIiwicm9sZSI6IlNUVURFTlQiLCJpYXQiOjE3OTA5NjMxNzgsImV4cCI6MTc5MTA0OTU3OH0.35JEHLnef9IUHWtHH3UNtOigKSdWIJT9lC_3xeTsVZ0
-
- 
-{
-  "status": "CONFIRMED"
-}
-
-
-### TEST CASE 14: Trigger the Centralized Exception Handler (Simulates a System Crash)
-GET http://localhost:5000/api/cause-crash
- 
-### TEST CASE 14B: Send Broken JSON to a Real Route (Client Mistake, Should Return 400)
-POST http://localhost:5000/api/users/login
-Content-Type: application/json
- 
-{
-  "email": "amber.student@brightminds.com",
-  "password":
-}
- 
-### TEST CASE 14C: Confirm the Server Is Still Alive After Both Failures
-GET http://localhost:5000/api/tutors
-
-
-
-
-

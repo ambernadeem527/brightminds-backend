@@ -4,6 +4,8 @@
 // ---------------------------------------------------------------------------
  
 // Load variables from the .env file into process.env. This must run FIRST.
+const path = require('path');
+
 require('dotenv').config();
  
 const express = require('express');
@@ -16,6 +18,8 @@ const db = require('./config/db');
 // Global Middleware Layer: parse raw text bodies into JSON objects (req.body)
 // This MUST stay above the route mounts.
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 // TEMPORARY DAY 15 DIAGNOSTIC LOGGER - Remove before final push
 app.use((req, res, next) => {
